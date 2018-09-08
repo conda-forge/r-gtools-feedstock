@@ -1,5 +1,4 @@
-{% set version = "3.8.1" %}
-
+{% set version = '3.8.1' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,33 +9,36 @@ package:
 source:
   fn: gtools_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/gtools_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/gtools/gtools_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/gtools_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/gtools/gtools_{{ version }}.tar.gz
   sha256: 051484459bd8ad1b03425b8843d24f6828fea18f7357cfa1c192198cc3f4ba38
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 2
   skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - $R -e "library('gtools')"  # [not win]
+    - $R -e "library('gtools')"           # [not win]
     - "\"%R%\" -e \"library('gtools')\""  # [win]
 
 about:
@@ -59,11 +61,17 @@ about:
     vector (''running''), - modify the TCP\_NODELAY (''de-Nagle'') flag for socket objects,
     - efficient ''rbind'' of data frames, even if the column names don''t match (''smartbind''),
     - generate significance stars from p-values (''stars.pval''), - convert characters
-    to/from ASCII codes.'
-
+    to/from ASCII codes (''asc'', ''chr''), - convert character vector to ASCII representation
+    (''ASCIIfy'').'
   license_family: GPL2
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-2'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
