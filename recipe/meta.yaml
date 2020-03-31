@@ -1,4 +1,4 @@
-{% set version = '3.8.1' %}
+{% set version = "3.8.2" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -11,11 +11,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gtools_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gtools/gtools_{{ version }}.tar.gz
-  sha256: 051484459bd8ad1b03425b8843d24f6828fea18f7357cfa1c192198cc3f4ba38
+  sha256: 503ba60a41f3c61b8129c25de62c74dab29761d2e661d4addd106e2e02f1dcde
 
 build:
-  merge_build_host: True  # [win]
-  number: 1003
+  merge_build_host: true  # [win]
+  number: 0
   skip: true  # [win32]
   rpaths:
     - lib/R/lib/
@@ -44,27 +44,18 @@ test:
 about:
   home: https://CRAN.R-project.org/package=gtools
   license: GPL-2
-  summary: 'Functions to assist in R programming, including: - assist in developing, updating,
-    and maintaining R and R packages (''ask'', ''checkRVersion'', ''getDependencies'',
-    ''keywords'', ''scat''), - calculate the logit and inverse logit transformations
-    (''logit'', ''inv.logit''), - test if a value is missing, empty or contains only
-    NA and NULL values (''invalid''), - manipulate R''s .Last function (''addLast''),
-    - define macros (''defmacro''), - detect odd and even integers (''odd'', ''even''),
-    - convert strings containing non-ASCII characters (like single quotes) to plain
-    ASCII (''ASCIIfy''), - perform a binary search (''binsearch''), - sort strings containing
-    both numeric and character components (''mixedsort''), - create a factor variable
-    from the quantiles of a continuous variable (''quantcut''), - enumerate permutations
-    and combinations (''combinations'', ''permutation''), - calculate and convert between
-    fold-change and log-ratio (''foldchange'', ''logratio2foldchange'', ''foldchange2logratio''),
-    - calculate probabilities and generate random numbers from Dirichlet distributions
-    (''rdirichlet'', ''ddirichlet''), - apply a function over adjacent subsets of a
-    vector (''running''), - modify the TCP\_NODELAY (''de-Nagle'') flag for socket objects,
-    - efficient ''rbind'' of data frames, even if the column names don''t match (''smartbind''),
-    - generate significance stars from p-values (''stars.pval''), - convert characters
-    to/from ASCII codes (''asc'', ''chr''), - convert character vector to ASCII representation
-    (''ASCIIfy'').'
+  summary: "Functions to assist in R programming, including: - assist in developing, updating, and maintaining R and R packages ('ask', 'checkRVersion', 'getDependencies',\
+    \ 'keywords', 'scat'), - calculate the logit and inverse logit transformations ('logit', 'inv.logit'), - test if a value is missing, empty or contains only NA\
+    \ and NULL values ('invalid'), - manipulate R's .Last function ('addLast'), - define macros ('defmacro'), - detect odd and even integers ('odd', 'even'), - convert\
+    \ strings containing non-ASCII characters (like single quotes) to plain ASCII ('ASCIIfy'), - perform a binary search ('binsearch'), - sort strings containing\
+    \ both numeric and character components ('mixedsort'), - create a factor variable from the quantiles of a continuous variable ('quantcut'), - enumerate permutations\
+    \ and combinations ('combinations', 'permutation'), - calculate and convert between fold-change and log-ratio ('foldchange', 'logratio2foldchange', 'foldchange2logratio'),\
+    \ - calculate probabilities and generate random numbers from Dirichlet distributions ('rdirichlet', 'ddirichlet'), - apply a function over adjacent subsets of\
+    \ a vector ('running'), - modify the TCP\\_NODELAY ('de-Nagle') flag for socket objects, - efficient 'rbind' of data frames, even if the column names don't match\
+    \ ('smartbind'), - generate significance stars from p-values ('stars.pval'), - convert characters to/from ASCII codes ('asc', 'chr'), - convert character vector\
+    \ to ASCII representation ('ASCIIfy')."
   license_family: GPL2
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
