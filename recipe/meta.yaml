@@ -1,4 +1,4 @@
-{% set version = "3.9.2" %}
+{% set version = "3.9.2.1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/gtools_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/gtools/gtools_{{ version }}.tar.gz
-  sha256: 03b1898bf581f6d12fa90e23ff700cfa7c834ac10c6654bdac42d7ec943fa953
+  sha256: ec5febad7bb33812684b39679b0bce8a668361b87714f7388546e0f4ac02af5f
 
 build:
   merge_build_host: true  # [win]
